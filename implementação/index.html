@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <title>Media Aritimetica</title>
+    <script>
+        
+        // Criação do objeto números
+        numeros ={
+            num1:0,
+            num2:0,
+            num3:0,
+            ordenar:function(){
+                let ordem = "";
+                if(this.num1==this.num2 && this.num2==this.num3){
+                    ordem = "Todos são iguais a : " + this.num1;
+                }else if (this.num1<=this.num2 && this.num2<=this.num3) {
+                    ordem = this.num1 + "   - "+ this.num2 + " - "+ this.num3 ;
+                } else if(this.num1<=this.num3 && this.num3<=this.num2) {
+                    ordem = this.num1 + " - "+ this.num3 + " - "+ this.num2 ;
+                }else if(this.num2<=this.num1 && this.num1<=this.num3){
+                    ordem = this.num2 + " - "+ this.num1 + " - "+ this.num3 ;
+                }else if(this.num2<=this.num3 && this.num3<=this.num1){
+                    ordem = this.num2 + " - "+ this.num3 + " - "+ this.num1 ;
+                }else if(this.num3<=this.num1 && this.num1<=this.num2){
+                    ordem = this.num3 + " - "+ this.num1 + " - "+ this.num2 ;
+                }else if(this.num3<=this.num2 && this.num2<=this.num1){
+                    ordem = this.num3 + " - "+ this.num2 + " - "+ this.num1 ;
+                }
+
+                return ordem;
+            },
+        };
+
+        // Camada de controller
+        controller = {
+            obterNúmeros : function(){
+                let num1 = parseFloat(document.getElementById("num1").value);
+                let num2 = parseFloat(document.getElementById("num2").value);
+                let num3 = parseFloat(document.getElementById("num3").value);
+                return {num1,num2,num3}
+            },            
+            exibirResultado(numerosOrdenados){
+                document.getElementById("resultado").innerText= " Ordem : " + numerosOrdenados;
+            },
+            limparCampos(){
+                document.getElementById("num1").value="";
+                document.getElementById("num2").value="";
+                document.getElementById("num3").value="";
+                document.getElementById("resultado").innerText ="";
+            },
+        }; 
+        // Function de inicialização       
+        function processarNumeros(){
+            // Obter números da tela
+           let dados = controller.obterNúmeros();
+
+           // Popular o objeto números 
+            numeros.num1 = dados.num1;
+            numeros.num2 = dados.num2;
+            numeros.num3 = dados.num3;
+
+           //calcular a média
+           let numerosOrdenados = numeros.ordenar();
+            
+          // Exibir resultado na tela
+           controller.exibirResultado(numerosOrdenados);  
+           
+        };
+    </script>
+</head>
+<body>
+
+    <div class="container" style="width: 30rem; padding-bottom: 1rem; margin-top: 5rem; background-color: cadetblue; ">
+        <div style="text-align: center;"><h2>Ordenar Números</h2></div>
+        <div class="form-group">
+          <label for="num1" style="font-weight: bold;">Número 1</label>
+          <input type="text" class="form-control" id="num1" placeholder="Digite o primeiro número">          
+        </div>
+        <div class="form-group">
+          <label for="num2" style="font-weight: bold;">Número 2</label>
+          <input type="text" class="form-control" id="num2" placeholder="Digite o segundo número">
+        </div>
+        <div class="form-group">
+            <label for="num3" style="font-weight: bold;">Número 3</label>
+            <input type="text" class="form-control" id="num3" placeholder="Digite o terceiro número">
+          </div>
+        <button class="btn btn-primary" onclick="processarNumeros()">Ordenar números</button> 
+        <button class="btn btn-primary" onclick="controller.limparCampos()">Limpar campos</button> 
+        <div class="alert alert-primary" role="alert" style="height: 3rem; margin-top: 1rem;">
+            <h2 style="font-size: x-large; text-align: center;"><label id="resultado"></h2></label>
+        </div>       
+       
+    </div>
+       
+
+    // 
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</body>
+</html>
